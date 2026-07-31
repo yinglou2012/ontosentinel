@@ -1,0 +1,48 @@
+# OntoGuard Default Configuration
+
+model:
+  primary: "deepseek-v3-1-terminus"   # custom endpoint model (env: DEFAULT_MODEL)
+  temperature: 0.3
+  max_tokens: 2048
+  timeout: 25   # per-HTTP-read timeout; with 2 retries worst single chat_with_tools ~51s
+
+# RATE risk-scoring weights (financial-domain defaults, calibrated)
+rate:
+  weights:
+    phi_rev:   0.25    # revision rounds factor
+    phi_sens:  0.20    # object sensitivity (sanctions, PEP)
+    phi_thresh: 0.35   # threshold proximity (largest in finance)
+    phi_crit:  0.20    # dependency criticality / aggregate
+  thresholds:
+    theta_auto:  0.30   # rho <= 0.30 → AUTO
+    theta_appr:  0.85   # 0.30 < rho <= 0.85 → APPROVE; >0.85 → REJECT
+  max_revision_rounds: 3
+
+# SCP config
+scp:
+  refresh_state_before_verify: true   # re-sync external state pre-verify
+  activate_subsumption: true          # use OWL subsumption for invariant inheritance
+  use_shacl: true                     # use SHACL for numeric/temporal constraints
+  elk_timeout_ms: 200
+
+# APAT audit
+apat:
+  enabled: true
+  hash_algorithm: "sha256"
+  log_dir: "results/audit_logs"
+
+# Environment simulation
+env:
+  daily_transfer_limit: 50000         # USD
+  single_transfer_limit: 50000
+  kyc_validity_days: 365
+  sar_threshold: 10000                # CTR threshold
+  structuring_window_count: 3
+  structuring_window_hours: 24
+
+# Experiment
+experiment:
+  seeds: [42, 123, 456, 789, 2024]
+  max_steps_per_scenario: 15
+  results_dir: "results"
+  verbose: false
