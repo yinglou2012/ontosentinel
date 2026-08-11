@@ -1,4 +1,5 @@
 openai>=1.12.0
+httpx>=0.25,<0.28
 pyyaml>=6.0
 python-dotenv>=1.0.0
 rdflib>=7.0.0
