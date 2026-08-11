@@ -9,7 +9,7 @@ SCP is the core safety interceptor:
 4. Tracks I_active (set of invariants activated by scenario context).
 
 This implementation uses the Python-native check functions in checks.py,
-which semantically simulate EL++ reasoning over the FRC ontology. The
+which semantically simulate rule-based reasoning over the FRC ontology. The
 subsumption-based invariant propagation is handled by get_invariants_for_action(),
 which traverses the action TBox hierarchy.
 """

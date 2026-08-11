@@ -1,7 +1,7 @@
 # OntoSentinel: Ontology-Guarded LLM Agents for Financial Compliance
 
 OntoSentinel is a middleware layer that enforces action admissibility for LLM-based
-agents in financial services. It combines an OWL 2 EL ontology (the **FRC
+agents in financial services. It combines a rule-based ontology (the **FRC
 ontology**—Financial Regulatory Compliance, 38 classes, 44 invariants) with a
 **Semantic Compliance Pipeline (SCP)** that verifies every agent action against
 ontological constraints before execution. When violations are detected,
@@ -19,11 +19,11 @@ This repository accompanies the paper:
 ontosentinel/
 ├── src/
 │   ├── scp/                  # Semantic Compliance Pipeline
-│   │   ├── engine.py         # SCP verifier: ELK reasoning + SHACL + invariant checks
+│   │   ├── engine.py         # SCP verifier: Python-native reasoning + SHACL + invariant checks
 │   │   ├── checks.py         # 44 invariant check functions (FIXED_CHECKS registry)
 │   │   ├── counterfactual.py # Counterfactual repair engine (binary search, precondition)
 │   │   ├── finvault_checks.py# FinVault-specific invariant checks
-│   │   └── state.py          # ABox / SessionState — ELK-backed knowledge base
+│   │   └── state.py          # ABox / SessionState — check-function-backed knowledge base
 │   ├── runner/
 │   │   ├── executor.py       # Scenario executor with 6 ablation methods
 │   │   ├── env.py            # Environment state simulation
@@ -38,7 +38,7 @@ ontosentinel/
 │   │   └── metrics.py        # SVR, CVR, DVR, TCR, FPR, Remediation Rate
 │   └── llm.py                # LLM API client (OpenAI-compatible endpoint)
 ├── ontology/
-│   ├── invariants.py         # FRC ontology: 38 classes, 44 invariants (OWL 2 EL)
+│   ├── invariants.py         # FRC ontology: 38 classes, 44 invariants (rule-based)
 │   └── finvault_invariants.py# FinVault ontology extension
 ├── scenarios/
 │   ├── benign/               # 101 benign financial scenarios
@@ -64,11 +64,11 @@ ontosentinel/
 
 ## Key Components
 
-### 1. FRC Ontology (OWL 2 EL, 38 Classes, 44 Invariants)
+### 1. FRC Ontology (38 Classes, 44 Invariants)
 
 The Financial Regulatory Compliance ontology is defined in `ontology/invariants.py`.
 It models financial entities (Client, Account, Transaction, Beneficiary, etc.) and
-encodes regulatory constraints as OWL 2 EL class expressions. The 44 invariants
+encodes regulatory constraints as Python-native check functions. The 44 invariants
 span seven compliance domains:
 
 | Domain | Invariants | Example |
@@ -85,7 +85,7 @@ span seven compliance domains:
 ### 2. SCP — Semantic Compliance Pipeline
 
 `src/scp/engine.py` implements the verification pipeline:
-1. **ELK Reasoning**: OWL 2 EL subsumption to determine which invariants apply to the action
+1. **Action-Hierarchy Reasoning**: rule-based invariant propagation to determine which invariants apply to the action
 2. **SHACL Validation**: Numeric and temporal constraint checking (amount thresholds, date windows)
 3. **Invariant Check Functions**: 44 domain-specific Python check functions registered in `FIXED_CHECKS`
 
@@ -152,7 +152,6 @@ cp .env.example .env
 
 - Python 3.10+
 - OpenAI-compatible LLM endpoint (DeepSeek V3, Qwen, or any model with tool-calling support)
-- ELK reasoner (included via `owlready2`)
 
 ---
 

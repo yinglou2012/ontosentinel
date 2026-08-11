@@ -10,7 +10,7 @@ categories:
   - none:        not repairable by parameter/precondition change
                  (e.g., sanctioned beneficiary, frozen account)
 
-The counterfactual search uses the existing ELK-backed check functions
+The counterfactual search uses the existing check functions
 (CHECK_FNS) to verify candidate fixes, ensuring that suggestions are
 grounded in formal ontological reasoning rather than LLM hallucination.
 """
@@ -100,7 +100,7 @@ class CounterfactualResult:
     suggested_fix: str = ""
     suggested_args: dict | None = None        # modified args that pass verification
     suggested_prerequisite: tuple[str, str] | None = None  # (action_type, description)
-    search_iterations: int = 0                 # how many ELK verifications were tried
+    search_iterations: int = 0                 # how many verification attempts were tried
     search_time_ms: float = 0.0
 
     def format_feedback(self) -> str:
@@ -144,7 +144,7 @@ class CounterfactualBundle:
 # ── Counterfactual search engine ────────────────────────────────────────────
 
 class CounterfactualEngine:
-    """Generates counterfactual repair suggestions using ELK-backed verification."""
+    """Generates counterfactual repair suggestions using rule-based verification."""
 
     # Binary search config for parameter repair
     MAX_BINARY_SEARCH_ITERS = 8
@@ -204,7 +204,7 @@ class CounterfactualEngine:
         Strategy:
         1. Try reducing by 50%, then binary search between 0 and original.
         2. Each candidate is verified by running ALL applicable invariants
-           on the hypothetical projected state (same ELK checks SCP uses).
+           on the hypothetical projected state (same invariant checks SCP uses).
         """
         original_value = args.get(param_key, 0)
         if not isinstance(original_value, (int, float)) or original_value <= 0:
@@ -262,7 +262,7 @@ class CounterfactualEngine:
     def _verify_candidate(self, action_type: str, args: dict) -> bool:
         """Verify a candidate action against all applicable invariants.
 
-        Uses the same check functions as SCP.verify() — this is the ELK-backed
+        Uses the same check functions as SCP.verify() — this is the rule-based
         verification that ensures the suggestion is ontologically grounded.
         """
         # Ensure session exists (in case counterfactual runs before env sets it)
