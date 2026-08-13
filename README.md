@@ -9,7 +9,7 @@ OntoSentinel generates **counterfactual repair suggestions** via binary search
 over action parameters and precondition insertion, enabling the LLM to self-correct.
 
 This repository accompanies the paper:
-> *OntoSentinel: Enforcing Action Admissibility for LLM Agents in Complex Interactive Environments* (under review).
+> *OntoSentinel: An Ontology-Guarded Middleware with Counterfactual Repair for Safe Action Execution in Financial LLM Agents* (submitted to Information Sciences).
 
 ---
 
@@ -22,13 +22,10 @@ ontosentinel/
 │   │   ├── engine.py         # SCP verifier: Python-native reasoning + SHACL + invariant checks
 │   │   ├── checks.py         # 44 invariant check functions (FIXED_CHECKS registry)
 │   │   ├── counterfactual.py # Counterfactual repair engine (binary search, precondition)
-│   │   ├── finvault_checks.py# FinVault-specific invariant checks
 │   │   └── state.py          # ABox / SessionState — check-function-backed knowledge base
 │   ├── runner/
 │   │   ├── executor.py       # Scenario executor with 6 ablation methods
 │   │   ├── env.py            # Environment state simulation
-│   │   ├── finvault_adapter.py    # FinVault environment adapter
-│   │   ├── finvault_runner.py     # FinVault experiment runner
 │   │   └── llamafirewall_guardrail.py  # LlamaFirewall baseline integration
 │   ├── apat/
 │   │   └── audit.py          # APAT — Audit Provenance & Accountability Trail
@@ -39,7 +36,6 @@ ontosentinel/
 │   └── llm.py                # LLM API client (OpenAI-compatible endpoint)
 ├── ontology/
 │   ├── invariants.py         # FRC ontology: 38 classes, 44 invariants (rule-based)
-│   └── finvault_invariants.py# FinVault ontology extension
 ├── scenarios/
 │   ├── benign/               # 101 benign financial scenarios
 │   └── traps/                # 39 adversarial trap scenarios
@@ -85,8 +81,8 @@ span seven compliance domains:
 ### 2. SCP — Semantic Compliance Pipeline
 
 `src/scp/engine.py` implements the verification pipeline:
-1. **Action-Hierarchy Reasoning**: rule-based invariant propagation to determine which invariants apply to the action
-2. **SHACL Validation**: Numeric and temporal constraint checking (amount thresholds, date windows)
+1. **Action-Hierarchy Reasoning**: Subsumption-based invariant propagation to determine which invariants apply to the action via the OWL EL++ concept hierarchy
+2. **Constraint Validation**: Numeric, temporal, and OWL-based constraint checking (amount thresholds, date windows, class membership)
 3. **Invariant Check Functions**: 44 domain-specific Python check functions registered in `FIXED_CHECKS`
 
 The verifier returns `(allowed, violations, feedback)` for each action.
@@ -121,12 +117,7 @@ including SCP verdicts, RATE scores, and counterfactual suggestions.
 - **101 benign**: Standard financial operations (transfers, withdrawals, securities trades)
 - **39 traps**: Adversarial scenarios designed to probe compliance boundaries
 
-### 7. FinVault Adapter
-
-`src/runner/finvault_adapter.py` and `src/runner/finvault_runner.py` map FinVault's
-proprietary action space to OntoSentinel's ontology, enabling cross-benchmark evaluation.
-
-### 8. LlamaFirewall Baseline
+### 7. LlamaFirewall Baseline
 
 `src/runner/llamafirewall_guardrail.py` integrates the LlamaFirewall AlignmentCheck
 scanner for baseline comparison, using the same LLM backend for fairness.
@@ -254,7 +245,7 @@ Edit `configs/default.yaml` to adjust:
 
 - **RATE weights**: `rate.weights.*` — domain-specific risk factors
 - **RATE thresholds**: `rate.thresholds.theta_auto` / `theta_appr`
-- **SCP settings**: `scp.use_shacl`, `scp.elk_timeout_ms`
+- **SCP settings**: `scp.use_subsumption`, `scp.verification_mode`
 - **Environment**: `env.daily_transfer_limit`, `env.kyc_validity_days`, etc.
 - **Experiment**: `experiment.seeds`, `experiment.max_steps_per_scenario`
 
@@ -318,10 +309,12 @@ Each result JSON contains per-scenario data:
 If you use OntoSentinel in your research, please cite:
 
 ```bibtex
-@inproceedings{ontosentinel2026,
-  title     = {OntoSentinel: Enforcing Action Admissibility for {LLM} Agents in Complex Interactive Environments},
-  author    = {Anonymous},
-  booktitle = {Findings of the Association for Computational Linguistics: ACL 2026},
+@article{ontosentinel2026,
+  title     = {OntoSentinel: An Ontology-Guarded Middleware with Counterfactual
+               Repair for Safe Action Execution in Financial {LLM} Agents},
+  author    = {Ying Lou and Qiang Zheng and Shanglian Peng and Qun Chen},
+  journal   = {Information Sciences},
+  note      = {Under review},
   year      = {2026},
 }
 ```
