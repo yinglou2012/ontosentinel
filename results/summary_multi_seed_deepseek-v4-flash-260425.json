@@ -1,0 +1,221 @@
+{
+  "model": "deepseek-v4-flash-260425",
+  "seeds": [
+    789,
+    2024,
+    101,
+    202,
+    303
+  ],
+  "methods": [
+    "none",
+    "react_p",
+    "ipc",
+    "sre",
+    "scp_only",
+    "full",
+    "llamafirewall"
+  ],
+  "total_elapsed_s": 903.4,
+  "seed_status": {
+    "789": "incomplete",
+    "2024": "incomplete",
+    "101": "incomplete",
+    "202": "incomplete",
+    "303": "incomplete"
+  },
+  "results": [
+    {
+      "method": "none",
+      "n_seeds": 5,
+      "svr": {
+        "mean": 0.14185758513931887,
+        "std": 0.005067652759679234
+      },
+      "cvr": {
+        "mean": 0.10549707602339181,
+        "std": 0.008079703786773957
+      },
+      "dvr": {
+        "mean": 0.46153846153846156,
+        "std": 0.0
+      },
+      "tcr": {
+        "mean": 1.0,
+        "std": 0.0
+      },
+      "fpr": {
+        "mean": 0.0,
+        "std": 0.0
+      },
+      "approval_rate": {
+        "mean": 0.0,
+        "std": 0.0
+      },
+      "remediation_rate": {
+        "mean": 0.21025641025641026,
+        "std": 0.028088336282316204
+      }
+    },
+    {
+      "method": "react_p",
+      "n_seeds": 5,
+      "svr": {
+        "mean": 0.11499592455782394,
+        "std": 0.007525989973007608
+      },
+      "cvr": {
+        "mean": 0.04465390099505419,
+        "std": 0.005057376284554702
+      },
+      "dvr": {
+        "mean": 0.4307692307692308,
+        "std": 0.04213250442347432
+      },
+      "tcr": {
+        "mean": 1.0,
+        "std": 0.0
+      },
+      "fpr": {
+        "mean": 0.0,
+        "std": 0.0
+      },
+      "approval_rate": {
+        "mean": 0.0,
+        "std": 0.0
+      },
+      "remediation_rate": {
+        "mean": 0.2512820512820513,
+        "std": 0.028088336282316204
+      }
+    },
+    {
+      "method": "ipc",
+      "n_seeds": 5,
+      "svr": {
+        "mean": 0.10996611295244725,
+        "std": 0.0022840963732669857
+      },
+      "cvr": {
+        "mean": 0.07031258976709104,
+        "std": 0.007759201659195907
+      },
+      "dvr": {
+        "mean": 0.3076923076923077,
+        "std": 0.0
+      },
+      "tcr": {
+        "mean": 1.0,
+        "std": 0.0
+      },
+      "fpr": {
+        "mean": 0.0,
+        "std": 0.0
+      },
+      "approval_rate": {
+        "mean": 0.0,
+        "std": 0.0
+      },
+      "remediation_rate": {
+        "mean": 0.26666666666666666,
+        "std": 0.014044168141158116
+      }
+    },
+    {
+      "method": "sre",
+      "n_seeds": 5,
+      "svr": {
+        "mean": 0.0450168449846092,
+        "std": 0.0021011651961710116
+      },
+      "cvr": {
+        "mean": 0.0,
+        "std": 0.0
+      },
+      "dvr": {
+        "mean": 0.15384615384615385,
+        "std": 0.0
+      },
+      "tcr": {
+        "mean": 0.9871428571428572,
+        "std": 0.009313146293146654
+      },
+      "fpr": {
+        "mean": 0.0,
+        "std": 0.0
+      },
+      "approval_rate": {
+        "mean": 0.0,
+        "std": 0.0
+      },
+      "remediation_rate": {
+        "mean": 0.26153846153846155,
+        "std": 0.021452821193181423
+      }
+    },
+    {
+      "method": "scp_only",
+      "n_seeds": 5,
+      "svr": {
+        "mean": 0.0,
+        "std": 0.0
+      },
+      "cvr": {
+        "mean": 0.0,
+        "std": 0.0
+      },
+      "dvr": {
+        "mean": 0.0,
+        "std": 0.0
+      },
+      "tcr": {
+        "mean": 1.0,
+        "std": 0.0
+      },
+      "fpr": {
+        "mean": 0.0,
+        "std": 0.0
+      },
+      "approval_rate": {
+        "mean": 0.0,
+        "std": 0.0
+      },
+      "remediation_rate": {
+        "mean": 0.4205128205128205,
+        "std": 0.014044168141158116
+      }
+    },
+    {
+      "method": "full",
+      "n_seeds": 5,
+      "svr": {
+        "mean": 0.0,
+        "std": 0.0
+      },
+      "cvr": {
+        "mean": 0.0,
+        "std": 0.0
+      },
+      "dvr": {
+        "mean": 0.0,
+        "std": 0.0
+      },
+      "tcr": {
+        "mean": 1.0,
+        "std": 0.0
+      },
+      "fpr": {
+        "mean": 0.0,
+        "std": 0.0
+      },
+      "approval_rate": {
+        "mean": 0.07067296584939609,
+        "std": 0.0029663042697976615
+      },
+      "remediation_rate": {
+        "mean": 0.4512820512820513,
+        "std": 0.014044168141158116
+      }
+    }
+  ]
+}

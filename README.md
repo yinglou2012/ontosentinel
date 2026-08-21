@@ -172,11 +172,10 @@ The six methods correspond to progressively enabling components:
 | `sre` | — | — | — | — | Self-reflection with error feedback |
 | `scp_only` | ✓ | — | ✓ | — | SCP verification + audit, no RATE |
 | `full` | ✓ | ✓ | ✓ | — | Full pipeline (SCP + RATE + APAT) |
-| `cf_full` | ✓ | ✓ | ✓ | ✓ | Full pipeline + counterfactual repair |
 | `llamafirewall` | — | — | — | — | LlamaFirewall AlignmentCheck baseline |
 
 ```bash
-for method in none react_p ipc sre scp_only full cf_full; do
+for method in none react_p ipc sre scp_only full; do
   python run_experiment.py \
     --model deepseek-v3-1-terminus \
     --method $method \

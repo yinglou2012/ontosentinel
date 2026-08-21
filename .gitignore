@@ -21,8 +21,12 @@ Thumbs.db
 
 # Experiment outputs (large per-scenario logs excluded)
 results/*
-!results/results_deepseek-v3-1-terminus_quick.json
+!results/results_deepseek-v3-1-terminus_seed*.json
+!results/results_deepseek-v3-1-terminus_remediation_*.json
+!results/results_deepseek-v4-flash-260425_seed*.json
 !results/results_glm-4.7_seed*.json
+!results/summary_multi_seed_deepseek-v3-1-terminus.json
+!results/summary_multi_seed_deepseek-v4-flash-260425.json
 !results/summary_multi_seed_glm-4.7.json
 logs/
 *.log
