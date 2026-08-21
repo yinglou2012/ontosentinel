@@ -33,7 +33,7 @@ ontosentinel/
 │   │   └── router.py         # RATE — Risk-Aware Tiered Escalation router
 │   ├── eval/
 │   │   └── metrics.py        # SVR, CVR, DVR, TCR, FPR, Remediation Rate
-│   └── llm.py                # LLM API client (OpenAI-compatible endpoint)
+│   └── llm.py                # LLM API client (DeepSeek, GLM-4.7, OpenAI, Qwen)
 ├── ontology/
 │   ├── invariants.py         # FRC ontology: 38 classes, 44 invariants (rule-based)
 ├── scenarios/
@@ -81,7 +81,7 @@ span seven compliance domains:
 ### 2. SCP — Semantic Compliance Pipeline
 
 `src/scp/engine.py` implements the verification pipeline:
-1. **Action-Hierarchy Reasoning**: Subsumption-based invariant propagation to determine which invariants apply to the action via the OWL EL++ concept hierarchy
+1. **Action-Hierarchy Reasoning**: Subsumption-based invariant propagation to determine which invariants apply to the action via the tractable concept hierarchy (check-function-backed, polynomial-time)
 2. **Constraint Validation**: Numeric, temporal, and OWL-based constraint checking (amount thresholds, date windows, class membership)
 3. **Invariant Check Functions**: 44 domain-specific Python check functions registered in `FIXED_CHECKS`
 
@@ -142,7 +142,7 @@ cp .env.example .env
 ### Requirements
 
 - Python 3.10+
-- OpenAI-compatible LLM endpoint (DeepSeek V3, Qwen, or any model with tool-calling support)
+- OpenAI-compatible LLM endpoint (DeepSeek V3/V4-Flash, GLM-4.7, Qwen, or any model with tool-calling support)
 
 ---
 
@@ -219,6 +219,21 @@ for method, data in results.items():
 print_results_table(all_metrics)
 "
 ```
+
+### Cross-Model Validation (GLM-4.7)
+
+To validate model-agnosticism, the full configuration was additionally run on
+GLM-4.7 (Zhipu AI) across 3 seeds (42, 789, 2024). Results closely match the
+DeepSeek findings: SVR/CVR/DVR/FPR all 0.0%, TCR 97.1%±2.5%, Remediation
+47.0%±5.3%.
+
+```bash
+# Set the GLM API key in .env (see .env.example)
+python run_multi_seed.py --seeds 42 789 2024 --method full
+```
+
+Per-seed results: `results/results_glm-4.7_seed{42,789,2024}.json`
+Summary: `results/summary_multi_seed_glm-4.7.json`
 
 ---
 

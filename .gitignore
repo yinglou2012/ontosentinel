@@ -19,8 +19,11 @@ build/
 .DS_Store
 Thumbs.db
 
-# Experiment outputs
-results/
+# Experiment outputs (large per-scenario logs excluded)
+results/*
+!results/results_deepseek-v3-1-terminus_quick.json
+!results/results_glm-4.7_seed*.json
+!results/summary_multi_seed_glm-4.7.json
 logs/
 *.log
 

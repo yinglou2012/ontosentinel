@@ -1,0 +1,51 @@
+{
+  "model": "glm-4.7",
+  "seeds": [
+    42,
+    789,
+    2024
+  ],
+  "methods": [
+    "full"
+  ],
+  "total_elapsed_s": 2955.3,
+  "seed_status": {
+    "42": "incomplete",
+    "789": "incomplete",
+    "2024": "incomplete"
+  },
+  "results": [
+    {
+      "method": "full",
+      "n_seeds": 3,
+      "svr": {
+        "mean": 0.0,
+        "std": 0.0
+      },
+      "cvr": {
+        "mean": 0.0,
+        "std": 0.0
+      },
+      "dvr": {
+        "mean": 0.0,
+        "std": 0.0
+      },
+      "tcr": {
+        "mean": 0.9714285714285714,
+        "std": 0.024743582965269715
+      },
+      "fpr": {
+        "mean": 0.0,
+        "std": 0.0
+      },
+      "approval_rate": {
+        "mean": 0.06407992973210365,
+        "std": 0.00541965528891679
+      },
+      "remediation_rate": {
+        "mean": 0.4700854700854701,
+        "std": 0.05337605126836237
+      }
+    }
+  ]
+}

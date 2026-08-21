@@ -1,4 +1,4 @@
-"""LLM API wrapper supporting DeepSeek (primary), OpenAI, and Qwen/DashScope."""
+"""LLM API wrapper supporting DeepSeek (primary), GLM (Zhipu AI), OpenAI, and Qwen/DashScope."""
 
 import os
 import time
@@ -32,6 +32,9 @@ class LLMClient:
         if "deepseek" in model:
             base_url = base_url or os.getenv("DEEPSEEK_BASE_URL", "https://api.deepseek.com")
             api_key = api_key or os.getenv("DEEPSEEK_API_KEY")
+        elif "glm" in model:
+            base_url = base_url or os.getenv("GLM_BASE_URL", "https://open.bigmodel.cn/api/paas/v4/")
+            api_key = api_key or os.getenv("GLM_API_KEY")
         elif "qwen" in model or "dashscope" in model:
             base_url = base_url or os.getenv("DASHSCOPE_BASE_URL", "https://dashscope.aliyuncs.com/compatible-mode/v1")
             api_key = api_key or os.getenv("DASHSCOPE_API_KEY")
