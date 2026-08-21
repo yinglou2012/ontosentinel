@@ -1,4 +1,4 @@
-# OntoSentinel: Ontology-Guarded LLM Agents for Financial Compliance
+# OntoSentinel: Detecting and Repairing Cross-Step Constraint Drift in Financial LLM Agents via Ontology-Driven Action Verification
 
 OntoSentinel is a middleware layer that enforces action admissibility for LLM-based
 agents in financial services. It combines a rule-based ontology (the **FRC
@@ -9,7 +9,7 @@ OntoSentinel generates **counterfactual repair suggestions** via binary search
 over action parameters and precondition insertion, enabling the LLM to self-correct.
 
 This repository accompanies the paper:
-> *OntoSentinel: An Ontology-Guarded Middleware with Counterfactual Repair for Safe Action Execution in Financial LLM Agents* (submitted to Information Sciences).
+> *OntoSentinel: Detecting and Repairing Cross-Step Constraint Drift in Financial LLM Agents via Ontology-Driven Action Verification* (submitted to Information Sciences).
 
 ---
 
@@ -81,7 +81,7 @@ span seven compliance domains:
 ### 2. SCP — Semantic Compliance Pipeline
 
 `src/scp/engine.py` implements the verification pipeline:
-1. **Action-Hierarchy Reasoning**: Subsumption-based invariant propagation to determine which invariants apply to the action via the tractable concept hierarchy (check-function-backed, polynomial-time)
+1. **Action-Hierarchy Reasoning**: Subsumption-based invariant propagation to determine which invariants apply to the action via the tractable concept hierarchy. The paper formalizes this using the OWL 2 EL profile for polynomial-time reasoning; the open-source implementation uses an equivalent Python-native check-function registry that produces identical subsumption results over the modeled action hierarchy.
 2. **Constraint Validation**: Numeric, temporal, and OWL-based constraint checking (amount thresholds, date windows, class membership)
 3. **Invariant Check Functions**: 44 domain-specific Python check functions registered in `FIXED_CHECKS`
 
@@ -325,8 +325,8 @@ If you use OntoSentinel in your research, please cite:
 
 ```bibtex
 @article{ontosentinel2026,
-  title     = {OntoSentinel: An Ontology-Guarded Middleware with Counterfactual
-               Repair for Safe Action Execution in Financial {LLM} Agents},
+  title     = {OntoSentinel: Detecting and Repairing Cross-Step Constraint Drift
+               in Financial {LLM} Agents via Ontology-Driven Action Verification},
   author    = {Ying Lou and Qiang Zheng and Shanglian Peng and Qun Chen},
   journal   = {Information Sciences},
   note      = {Under review},
